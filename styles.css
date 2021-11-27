@@ -1,48 +1,50 @@
- h1{
-     margin-left: 12%;
-     padding-bottom:0px;
-     padding-top:40px;
- }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
- h3 {
-     margin-top:50px;
- }
+h1 {
+    /* margin-left: 12%; */
+    padding-bottom: 0px;
+    padding-top: 40px;
+}
 
-     .grid-container {
-         margin-left:160px;
-         margin-top: 0px;
-         padding: 0px;
-        
-        display: grid;
-        grid-template-columns:auto auto auto;
-        background-color: #ffffff;
-        height:100px;
-        width:100px;
-      
-      }
+h3 {
+    margin-top: 50px;
+}
 
-      /*.grid-item */ 
-       #a1,#a2,#a3,#a4,#a5,#a6,#a7,#a8,#a9{
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        height: 30px;
-        width:150px;
-        text-align:center;
-        padding-top:50px;
-        padding-bottom:70px;
-        
-    
-       }
-        
-        #new{
-          margin-top:10px;
-          padding:15px;
-          font-size:20px;
-          font-weight:bold;
-        
-      } 
-     
+.grid-container {
+    /* margin-left: 160px; */
+    margin-top: 0px;
+    padding: 0px;
 
- button:hover,#a1:hover,#a2:hover,#a3:hover,#a4:hover,#a5:hover,#a6:hover,#a7:hover,#a8:hover,#a9:hover{
-    background:#93FF76;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #ffffff;
+    /* height: 100px; */
+    /* width: 100px; */
+}
+
+#tictactoe-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    height: 30px;
+    width: 150px;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+
+#reset-btn {
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+button:hover,
+#tictactoe-btn:hover {
+    background: #93ff76;
 }
