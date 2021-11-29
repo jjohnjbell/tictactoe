@@ -87,6 +87,7 @@ window.onload = function () {
 
         // Use array of win conditions and current player - "X" or "Y" to determine if a match is met.
         for (let i = 0; i < winConditions.length; i++) {
+            let buttonsWon = []
             // Inside win-conditions array | Max = 8
             let playerStreak = 0;
             for (let j = 0; j < winConditions[i].length; j++) {
@@ -95,12 +96,15 @@ window.onload = function () {
                 const buttonIndex = winConditions[i][j];
                 if (buttonsElementArray[buttonIndex].innerHTML === lastPlayer) {
                     playerStreak++;
-                    buttonsElementArray[buttonIndex].style.background= "green"
-             
+                    buttonsWon.push(buttonsElementArray[buttonIndex]) 
+                        
             }
             // If there matches in a winCondition, then the last player wins.
             if (playerStreak === 3) {
                 gameEnd = true;
+                for (i=0; i < 4; i++){
+                    buttonsWon[i].style.background = "green"
+                }
               
                 if (lastPlayer === chromeEl){
                 message.innerHTML = `Congratulations. Chrome's our WINNER!`;
