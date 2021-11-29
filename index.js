@@ -41,6 +41,10 @@ window.onload = function () {
     // const but8 = document.getElementById("a8")
     // const but9 = document.getElementById("a9")
 
+    //Grab graphic elements
+    const googleEl = `<img src="images/google.jpg" height="100" width="100">`
+    const chromeEl = `<img src="images/chrome.jpg" height="100" width="100">`
+
     // Select all elements with the role 'button'.
     let buttons = document.querySelectorAll("#tictactoe-btn");
     const buttonsElementArray = Array.from(buttons);
@@ -81,7 +85,7 @@ window.onload = function () {
         [2, 4, 6],
     ];
 
-    let player1Turn = true;
+
     let gameEnd = false;
     let player = "X"; // Keep track of current player
     let turnsPlayed = 0; // Keep track of total turns played
@@ -105,21 +109,27 @@ window.onload = function () {
 
     function handleButtonClick(button) {
         // Only run function if button is empty AND the game hasn't already ended.
-        if (button.innerText === "" && gameEnd !== true) {
+        if (button.innerHTML === "" && gameEnd !== true) {
             if (player === "X") {
-                button.innerText = "X";
+                button.innerHTML = googleEl
                 player = "O";
             } else {
-                button.innerText = "O";
+                button.innerHTML = chromeEl
                 player = "X";
             }
-            messageElement.textContent = `Player ${player}'s turn.`;
+           
+            if ( player === "O"){
+            messageElement.textContent = `Chrome's turn.`;
+            }else{
+            messageElement.textContent = `Google's turn.`;
+            }
             turnsPlayed++;
         }
         // Only check win conditions if 5 or more turns have been played.
         if (turnsPlayed >= 5) {
             checkWinCondition();
         }
+    
     }
 
     // function checkWinner() {
@@ -145,15 +155,18 @@ window.onload = function () {
         // Get the last player to make a move, so we can check if they won the game.
         let lastPlayer = "";
         if (player === "X") {
-            lastPlayer = "O";
+            lastPlayer = chromeEl;
         } else {
-            lastPlayer = "X";
+            lastPlayer = googleEl;
         }
 
         // If all 9 spots have been filled, then the game was a TIE.
         if (turnsPlayed === 9) {
             gameEnd = true;
             message.textContent = `Bummer. This game was a tie.`;
+            for (let i = 0; i < buttonsElementArray.length; i++) {
+                buttonsElementArray[i].style.background= "red"
+            }
         }
 
         // Use array of win conditions and current player - "X" or "Y" to determine if a match is met.
@@ -164,14 +177,20 @@ window.onload = function () {
                 // Inside win-conditions array -> button-indexes-array | Max = 3
                 // Check if these button indexes all have the textContent of the last player - "X" or "O".
                 const buttonIndex = winConditions[i][j];
-                if (buttonsElementArray[buttonIndex].textContent === lastPlayer) {
+                if (buttonsElementArray[buttonIndex].innerHTML === lastPlayer) {
                     playerStreak++;
-                }
+                    buttonsElementArray[buttonIndex].style.background= "green"
+             
             }
             // If there matches in a winCondition, then the last player wins.
             if (playerStreak === 3) {
                 gameEnd = true;
-                message.textContent = `Congratulations. Player ${lastPlayer} Wins!`;
+              
+                if (lastPlayer === chromeEl){
+                message.innerHTML = `Congratulations. Chrome's our WINNER!`;
+                }else{
+                message.innerHTML = `Congratulations. Google's our WINNER!`;
+                } 
             }
         }
     }
@@ -242,11 +261,12 @@ window.onload = function () {
         turnsPlayed = 0;
         messageElement.textContent = "";
         // Improvement: Let the players know which turn it is.
-        messageElement.textContent = `Player ${player}'s turn.`;
+        messageElement.innerHTML = `Google's turn.`;
 
         // Use the button array to reset all text to blank strings.
         for (let i = 0; i < buttonsElementArray.length; i++) {
-            buttonsElementArray[i].textContent = "";
+            buttonsElementArray[i].innerHTML = "";
+            buttonsElementArray[i].style.background= "white"
         }
     }
 
