@@ -1,6 +1,6 @@
 // Waits for the window document to load before running javascript
 window.onload = function () {
-   
+
     //Grab graphic elements
     const googleEl = `<img src="images/google.jpg" height="100" width="100">`
     const chromeEl = `<img src="images/chrome.jpg" height="100" width="100">`
@@ -19,7 +19,7 @@ window.onload = function () {
     const messageElement = document.getElementById("message");
     const newButtonElement = document.getElementById("reset-btn");
 
-  
+
     const winConditions = [
         // Horizontal Conditions
         [0, 1, 2],
@@ -39,7 +39,7 @@ window.onload = function () {
     let player = "X"; // Keep track of current player
     let turnsPlayed = 0; // Keep track of total turns played
     resetGame();
-  
+
 
     function handleButtonClick(button) {
         // Only run function if button is empty AND the game hasn't already ended.
@@ -51,11 +51,11 @@ window.onload = function () {
                 button.innerHTML = chromeEl
                 player = "X";
             }
-           
-            if ( player === "O"){
-            messageElement.textContent = `Chrome's turn.`;
-            }else{
-            messageElement.textContent = `Google's turn.`;
+
+            if (player === "O") {
+                messageElement.textContent = `Chrome's turn.`;
+            } else {
+                messageElement.textContent = `Google's turn.`;
             }
             turnsPlayed++;
         }
@@ -63,7 +63,7 @@ window.onload = function () {
         if (turnsPlayed >= 5) {
             checkWinCondition();
         }
-    
+
     }
 
 
@@ -77,11 +77,11 @@ window.onload = function () {
         }
 
         // If all 9 spots have been filled, then the game was a TIE.
-        if (turnsPlayed === 9) {
+        if (turnsPlayed === 9 && gameEnd === false) {
             gameEnd = true;
             message.textContent = `Bummer. This game was a tie.`;
             for (let i = 0; i < buttonsElementArray.length; i++) {
-                buttonsElementArray[i].style.background= "red"
+                buttonsElementArray[i].style.background = "red";
             }
         }
 
@@ -96,24 +96,32 @@ window.onload = function () {
                 const buttonIndex = winConditions[i][j];
                 if (buttonsElementArray[buttonIndex].innerHTML === lastPlayer) {
                     playerStreak++;
-                    buttonsWon.push(buttonsElementArray[buttonIndex]) 
-                        
-            }
-            // If there matches in a winCondition, then the last player wins.
-            if (playerStreak === 3) {
-                gameEnd = true;
-                for (i=0; i < 4; i++){
-                    buttonsWon[i].style.background = "green"
+                    // buttonsWon.push(buttonsElementArray[buttonIndex]);
                 }
-              
-                if (lastPlayer === chromeEl){
-                message.innerHTML = `Congratulations. Chrome's our WINNER!`;
-                }else{
-                message.innerHTML = `Congratulations. Google's our WINNER!`;
-                } 
+                // If there matches in a winCondition, then the last player wins.
+                if (playerStreak === 3) {
+                    gameEnd = true;
+                    const winningCondition = winConditions[i];
+
+                    for (let i = 0; i < winningCondition.length; i++) {
+                        const buttonValue = winningCondition[i];
+                        buttonsElementArray[buttonValue].style.background = "green";
+                    }
+
+                    // console.log(buttonsWon);
+                    // for (i = 0; i <= 2; i++) {
+                    //     buttonsWon[i].style.background = "green";
+                    //     console.log(".")
+                    // }
+
+                    if (lastPlayer === chromeEl) {
+                        message.innerHTML = `Congratulations. Chrome's our WINNER!`;
+                    } else {
+                        message.innerHTML = `Congratulations. Google's our WINNER!`;
+                    }
+                }
             }
         }
-    }
     }
 
 
@@ -129,7 +137,7 @@ window.onload = function () {
         // Use the button array to reset all text to blank strings.
         for (let i = 0; i < buttonsElementArray.length; i++) {
             buttonsElementArray[i].innerHTML = "";
-            buttonsElementArray[i].style.background= "white"
+            buttonsElementArray[i].style.background = "white"
         }
     }
 
